@@ -70,29 +70,32 @@
         </tr>
         </thead>
         <tbody>
-        {% for token in tokens[:-1] %}
-            <tr class="{% if 'token' in token and token.token in errors|map(attribute='token') %}error{% endif %}">
-                <td>{{ token.token }}</td>
-                <td>{{ token.line }}</td>
-                <td>{{ token.reserved }}</td>
-                <td>{{ token.symbol }}</td>
-                <td>{{ token.comma }}</td>
-                <td>{{ token.semicolon }}</td>
-                <td>{{ token.left_paren }}</td>
-                <td>{{ token.right_paren }}</td>
-                <td>{{ token.left_brace }}</td>
-                <td>{{ token.right_brace }}</td>
-                <td>{{ token.number }}</td>
-                <td>{{ token.identifier }}</td>
-            </tr>
-        {% endfor %}
-        <tr>
-            <td>Total</td>
-            {% for key, count in tokens[-1].items() %}
-                <td>{{ count }}</td>
+        {% if tokens %}
+            {% for token in tokens[:-1] %}
+                <tr class="{% if 'token' in token and token.token in errors|map(attribute='token') %}error{% endif %}">
+                    <td>{{ token.token }}</td>
+                    <td>{{ token.line }}</td>
+                    <td>{{ token.reserved }}</td>
+                    <td>{{ token.symbol }}</td>
+                    <td>{{ token.comma }}</td>
+                    <td>{{ token.semicolon }}</td>
+                    <td>{{ token.left_paren }}</td>
+                    <td>{{ token.right_paren }}</td>
+                    <td>{{ token.left_brace }}</td>
+                    <td>{{ token.right_brace }}</td>
+                    <td>{{ token.number }}</td>
+                    <td>{{ token.identifier }}</td>
+                </tr>
             {% endfor %}
-        </tr>
+            <tr>
+                <td>Total</td>
+                {% for key, count in tokens[-1].items() %}
+                    <td>{{ count }}</td>
+                {% endfor %}
+            </tr>
+        {% endif %}
         </tbody>
+
 
     </table>
 </div>
