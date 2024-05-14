@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 reserved_words = {'for', 'do', 'while', 'if', 'int', 'else', 'print', 'end', 'read', 'programa'}
 symbols = {';', '"', '+', '=', ',', '(', ')', '{', '}'}
+identifiers = {'a', 'b', 'c', 'la', 'suma', 'es'}
 
 def analyze_code(code):
     lines = code.split('\n')
@@ -15,11 +16,11 @@ def analyze_code(code):
         words = re.findall(r'\b\w+\b|[\(\){};"+=,]', line)
         for word in words:
             if word in reserved_words:
-                if word not in reserved_words:
-                    errors.append({'token': word, 'line': i})
                 reserved = 'x'
             else:
                 reserved = ''
+            if word not in reserved_words and word not in symbols and not word.isdigit() and word not in identifiers:
+                errors.append({'token': word, 'line': i})
             token = {
                 'token': word,
                 'line': i,
@@ -32,7 +33,7 @@ def analyze_code(code):
                 'left_brace': 'x' if word == '{' else '',
                 'right_brace': 'x' if word == '}' else '',
                 'number': 'x' if word.isdigit() else '',
-                'identifier': 'x' if word not in reserved_words and word not in symbols and not word.isdigit() else ''
+                'identifier': 'x' if word in identifiers else '',
             }
             tokens.append(token)
 

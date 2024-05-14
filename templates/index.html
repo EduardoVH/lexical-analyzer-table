@@ -95,9 +95,15 @@
             </tr>
         {% endif %}
         </tbody>
-
-
     </table>
+    {% if errors %}
+        <h2>Errores</h2>
+        <ul>
+            {% for error in errors %}
+                <li>Error en la línea {{ error.line }}: Token '{{ error.token }}' no reconocido.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </div>
 </body>
 </html>
